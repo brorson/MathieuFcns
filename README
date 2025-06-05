@@ -1,0 +1,34 @@
+These are Matlab functions to compute the angular Mathieu functions ce
+and se using a direct collocation method (i.e. without computing the
+Fourier decomposition of the functions).  There are three layers to
+these functions.  The calling hierarchy goes from high (top level) to
+low (basic building blocks). 
+
+Lowest:  make_matrix_e(N, q, vn), make_matrix_o(N, q, vn) -- These
+create the collocation matrices including BCs.  N is the size of the
+matrix, q is the scalar value for which the matrix is created.  vn is
+the angle grid, but I only use it to get the point spacing h.  
+
+Mid:  mathieu_a(Ne, q), mathieu_b(Ne, q) -- These return the
+eigenvalues (Mathieu characteristic values) for all orders up to Ne
+for a scalar q value.  
+
+Mid:  mathieu_ce(Ne,q,v), mathieu_se(Ne,q,v) -- These compute the
+Mathieu fcns themselves.  Each function returns a set of values at the
+grid points v for all orders up to Ne (that is, the return is a matrix
+whose rows corresond to different v and whose columns are different
+orders).  The functions are computed for a specific scalar q.
+
+High:  plot_eigs -- This makes the classic plot of the Mathieu
+characteristics vs. q, i.e. Figure 28.2.1 on
+https://dlmf.nist.gov/28.2
+
+High:  plot_mathieu_e, plot_mathieu_o -- These make plots of the first
+Ne Mathieu functions of a particular type (e = even = ce, o = odd =
+se).  The plots are made for a specific q.
+
+I will add additional test fcns to this repo as I continue working.
+
+
+SDB, May & June 2025
+
