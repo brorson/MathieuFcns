@@ -1,4 +1,4 @@
-function plot_mathieu_o()
+function plot_mathieu_ce()
   % This uses a finite-difference approximation to
   % the Mathieu equation to create an eigenvalue
   % problem.  The solution to the eigenvalue problem
@@ -24,11 +24,11 @@ function plot_mathieu_o()
   % First plot Mathieu eigs vs. q to reproduce plot
   % on https://dlmf.nist.gov/28.2
 
-  % Domain of q values to examine
+  % Domain of q values to examine (for plotting)
   qs = linspace(0,10,N)';
   
   % Preallocate a vector to store values.
-  bs = zeros(length(qs), Ne);
+  as = zeros(length(qs), Ne);
   
   % Loop over qs.
   tic
@@ -38,23 +38,23 @@ function plot_mathieu_o()
     % Get eigenvalues.  mathieu_a returns eigenvalues up
     % to Ne as a row vector.  Here I just stack up the row
     % vectors.
-    bs(i,:) = mathieu_b(Ne, q);
+    as(i,:) = mathieu_a(Ne, q);
   end
   toc
 
-  fprintf('Odd eigs close to q=0:')
-  disp(bs(1,:))
+  fprintf('Even eigs close to q=0:')
+  disp(as(1,:))
   
   % Make plot of eigenvalues vs. q
   figure(1)
   c = {};
   for j=1:Ne
     hold on
-    plot(qs,bs(:,j),'-')
-    c = [c, ['b',num2str(j-1)]];
+    plot(qs,as(:,j),'-')
+    c = [c, ['a',num2str(j-1)]];
   end
   ylim([-5,20]);
-  title('First Mathieu odd eigenvalues vs. q')
+  title('First Mathieu even eigenvalues vs. q')
   xlabel('q')
   ylabel('eigenvalue')
   legend(c)
@@ -67,37 +67,36 @@ function plot_mathieu_o()
   Ne = 8;
   q = 1.0;
 
-  se = mathieu_se(Ne,q,v);
+  ce = mathieu_ce(Ne,q,v);
 
   % Now make plots
-  see_leg = {};
-  seo_leg = {};  
+  cee_leg = {};
+  ceo_leg = {};  
   for j=1:Ne
-    if (mod(j,2) == 0)
-      fprintf('j = %d -- even se\n', j)
+    if (mod(j-1,2) == 0)
+      fprintf('j-1 = %d -- even ce\n', j-1)
       figure(2)
-      plot(v,se(:,j),'-')
-      title('se functions -- even j')
-      see_leg = [see_leg, ['se',num2str(j)] ];
+      plot(v,ce(:,j),'-')
+      title('ce functions -- even j')
+      cee_leg = [cee_leg, ['ce',num2str((j-1))]];    
     else
-      fprintf('j = %d -- odd se\n', j)
+      fprintf('j-1 = %d -- odd ce\n', j-1)
       figure(3)
-      plot(v,se(:,j),'-')
-      title('se functions -- odd j')
-      seo_leg = [seo_leg, ['se',num2str(j)] ];    
+      plot(v,ce(:,j),'-')
+      title('ce functions -- odd j')
+      ceo_leg = [ceo_leg, ['ce',num2str((j-1))]];    
     end
     xlim([0,pi/2])
     hold on
   end
   
-  for j=1:Ne  
-    if (mod(j,2) == 0)
-      figure(2)
-      legend(see_leg);
-    else
-      figure(3)
-      legend(seo_leg);
-    end
+  if (mod(j-1,2) == 0)
+    figure(2)
+    legend(cee_leg);
+  else
+    figure(3)    
+    legend(ceo_leg);
   end
+  
   
 end
