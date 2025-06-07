@@ -8,15 +8,16 @@ function bs = mathieu_b(Ne, q)
   
   % Number of sample points.  I should make this depend
   % upon how many eigenvalues are requested.
-  N = 553;
+  N = 251;
   
   % My playing field -- fcn domain.
-  v = linspace(-pi, pi, N-2)';
+  v = linspace(-pi, pi, N)';  % Set domain including zero end points.
 
   % Preallocate space for eigenvalues.
   bs = zeros(1,Ne);
   
   % Create finite difference matrix of Mathieu ODE.
+  % This matrix doesn't include the zero end points.
   Ae = make_matrix_o(N-2,q,v);
   
   % Compute eigenvalues

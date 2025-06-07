@@ -7,7 +7,8 @@ function se = mathieu_se(Ne,q,v)
   % Number of sample points
   N = length(v);
   
-  % My playing field -- fcn domain.
+  % My playing field -- fcn domain.  I include all points
+  % in the domain.
   v = linspace(-pi, pi, N)';
   h = v(2)-v(1);
   % Find location of v = 0.  Used to flip sign of some
@@ -17,8 +18,10 @@ function se = mathieu_se(Ne,q,v)
 
   %----------------------------------------------------------
   % Compute se using collocation method.
-  
-  A = make_matrix_o(N-2,q,v(2:end-1));
+
+  % Make matrix.  Ask for matrix with row/col lengths two less than
+  % full input domain.  
+  A = make_matrix_o(N-2,q,v);
   % fprintf('cond(A) = %e\n', cond(full(A)))
   
   % Compute eigenvalues & vectors
