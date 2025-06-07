@@ -23,9 +23,9 @@ High:  plot_eigs -- This makes the classic plot of the Mathieu
 characteristics vs. q, i.e. Figure 28.2.1 on
 https://dlmf.nist.gov/28.2
 
-High:  plot_mathieu_e, plot_mathieu_o -- These make plots of the first
-Ne Mathieu functions of a particular type (e = even = ce, o = odd =
-se).  The plots are made for a specific q.
+High:  plot_mathieu_ce, plot_mathieu_se -- These make plots of the first
+Ne Mathieu functions of a particular type.  The plots are made for a
+specific q.
 
 I will add additional test fcns to this repo as I continue working.
 
