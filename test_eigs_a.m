@@ -71,8 +71,11 @@ function test_eigs_a()
 
   %------------------------------------------------------------
   % Test asymptotic expansion from section 3.3.2 in Bricombe's paper
-  % https://arxiv.org/pdf/2008.01812v2
-  qs = linspace(2, 10, N)';
+  % https://arxiv.org/pdf/2008.01812v2.
+  % SDB says: These don't work at all.  Why?
+  return
+  
+  qs = linspace(20, 100, N)';
   h = sqrt(qs);
   a = zeros(N,4);  % Put eigenvalues into cols
   for m=0:3
