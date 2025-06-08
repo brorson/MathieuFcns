@@ -29,7 +29,7 @@ function test_mathieu_ce()
     
   end
   title('Residual of ce vs. v')
-  legend('ce1', 'ce2', 'ce3', 'ce4')
+  legend('ce0', 'ce1', 'ce2', 'ce3')
   xlabel('v')
   ylabel('ce_n')
   xlim([0, pi/2])
