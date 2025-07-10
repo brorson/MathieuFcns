@@ -1,20 +1,14 @@
-function se = mathieu_se(Ne,q,v)
+function se = mathieu_se(Ne,q,N)
   % This uses a finite-difference approximation to
   % the Mathieu equation to create an eigenvalue
   % problem.  The Mathieu functions appear as sampled
   % functions in the col vectors of S.
   
-  % Number of sample points
-  N = length(v);
-  
   % My playing field -- fcn domain.  I include all points
   % in the domain.
   v = linspace(-pi, pi, N)';
   h = v(2)-v(1);
-  % Find location of v = 0.  Used to flip sign of some
-  % eigenvectors.
-  zidx = find( abs(v) < (v(end)-v(1))/N );
-  zidx = zidx(1);
+
 
   %----------------------------------------------------------
   % Compute se using collocation method.
@@ -41,11 +35,12 @@ function se = mathieu_se(Ne,q,v)
   % Now extract the odd fcns and put them into se
   se = S(:,2:2:2*Ne);
   
-  % Correct sign of fcns.  By definition, all fcns are
-  % positive for v > 0.
+  % By defintion, all slopes are positive for v = 0.  Modify fcns
+  % to obey this definition.
+  zidx = floor(N/2);  % Location of v=0
   for j=1:Ne
-    if (se(zidx+2,j) < -1e-3)
-      % Must flip sign.
+    if ( (se(zidx+1,j)-se(zidx,j)) < 0 )
+      % Slope was negative.
       se(:,j) = -se(:,j);
     end
   end

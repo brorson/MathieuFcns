@@ -13,12 +13,9 @@ function plot_mathieu_ce()
   Ne = 5;
 
   % My playing field -- fcn domain.
+  % Note that the fcn impl only works on the [-pi,pi] domain.
   v = linspace(-pi, pi, N)';
   h = v(2)-v(1);
-  % Find location of v = 0.  Used to flip sign of some
-  % eigenvectors.
-  zidx = find( abs(v) < (v(end)-v(1))/N );
-  zidx = zidx(1);
 
   %----------------------------------------------------------
   % First plot Mathieu eigs vs. q to reproduce plot
@@ -67,7 +64,7 @@ function plot_mathieu_ce()
   Ne = 8;
   q = 1.0;
 
-  ce = mathieu_ce(Ne,q,v);
+  ce = mathieu_ce(Ne,q,N);
 
   % Now make plots
   cee_leg = {};

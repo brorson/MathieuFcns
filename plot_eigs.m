@@ -22,6 +22,7 @@ function plot_eigs()
   as = zeros(length(qs), Ne);
   
   % Loop over qs.
+  fprintf('Calculating a eigenvalues ... ')
   tic
   for i = 1:length(qs)
     q = qs(i);  % Get this value of q.
@@ -62,6 +63,7 @@ function plot_eigs()
   bs = zeros(length(qs), Ne);
   
   % Loop over qs.
+  fprintf('Calculating b eigenvalues ... ')  
   tic
   for i = 1:length(qs)
     q = qs(i);  % Get this value of q.

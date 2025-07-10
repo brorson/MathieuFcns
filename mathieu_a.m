@@ -24,7 +24,7 @@ function as = mathieu_a(Ne, q)
   opts.maxit = 2000;
   %opts.disp = 1;
   opts.p = 50;
-  %opts.tol = 1e-15;
+  opts.tol = 1e-10;
   [S,D,flag] = eigs(Ae,2*Ne,'largestreal',opts);
   DD = -diag(D);
 

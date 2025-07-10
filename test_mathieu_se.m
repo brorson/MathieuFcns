@@ -10,7 +10,7 @@ function test_mathieu_se()
   
   % First ask for Mathieu eigs and fcns.  Ask for first four orders.
   bs = mathieu_b(Ne, q);
-  Ss = mathieu_se(Ne,q,v);
+  Ss = mathieu_se(Ne,q,N);
   
   % Now test each fcn individually
   for j=1:Ne

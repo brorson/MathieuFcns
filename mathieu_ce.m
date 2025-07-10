@@ -1,20 +1,18 @@
-function ce = mathieu_ce(Ne,q,v)
+function ce = mathieu_ce(Ne,q,N)
   % This uses a finite-difference approximation to
   % the Mathieu equation to create an eigenvalue
   % problem.  The Mathieu functions appear as sampled
   % functions in the col vectors of S.
-  
-  % Number of sample points
-  N = length(v);
   
   % My playing field -- fcn domain.
   v = linspace(-pi, pi, N)';
   h = v(2)-v(1);
   % Find location of v = 0.  Used to flip sign of some
   % eigenvectors.
-  zidx = find( abs(v) < (v(end)-v(1))/N );
-  zidx = zidx(1);
-
+  %zidx = find( abs(v) < (v(end)-v(1))/N );
+  %zidx = zidx(1);
+  zidx = floor(N/2);
+  
   %----------------------------------------------------------
 
   A = make_matrix_e(N,q,v);

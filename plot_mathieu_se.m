@@ -15,10 +15,6 @@ function plot_mathieu_se()
   % My playing field -- fcn domain.
   v = linspace(-pi, pi, N)';
   h = v(2)-v(1);
-  % Find location of v = 0.  Used to flip sign of some
-  % eigenvectors.
-  zidx = find( abs(v) < (v(end)-v(1))/N );
-  zidx = zidx(1);
 
   %----------------------------------------------------------
   % First plot Mathieu eigs vs. q to reproduce plot
@@ -67,7 +63,7 @@ function plot_mathieu_se()
   Ne = 8;
   q = 1.0;
 
-  se = mathieu_se(Ne,q,v);
+  se = mathieu_se(Ne,q,N);
 
   % Now make plots
   see_leg = {};
