@@ -22,17 +22,25 @@ function se = mathieu_se(Ne,q,N)
   opts = struct();
   opts.maxit = 2000;
   %opts.disp = 1;
-  opts.p = 100;
+  opts.p = 200;
   %opts.tol = 1e-15;
-  [S,D,flag] = eigs(A,2*Ne,'largestreal',opts);
+  opts.v0 = exp(-(1:(N-2))');  % May not be helpful...
+
+  % Use this when running Matlab
+  %[S,D,flag] = eigs(A,2*Ne,'largestreal',opts);
+  
+  % Use this when running Octave
+  [S,D] = eigs(A,2*Ne,'sm', opts);
   
   % Since position of eigenvalues & vectors from eigs jumps around,
   % sort them prior to use.  Also extract odd fcns.
   [DD, idx] = sort(diag(-D),'ascend');
-  % Tack zeros to top and bottom of the eigenvector matrix.
-  S = [zeros(1, 2*Ne); S(:,idx); zeros(1, 2*Ne)];
+  S = S(:,idx);
 
-  % Now extract the odd fcns and put them into se
+  % Tack zeros to top and bottom of the eigenvector matrix.
+  S = [zeros(1, 2*Ne); S; zeros(1, 2*Ne)];  
+
+  % Now extract the even cols and put them into se
   se = S(:,2:2:2*Ne);
   
   % By defintion, all slopes are positive for v = 0.  Modify fcns

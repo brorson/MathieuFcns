@@ -37,4 +37,4 @@ SDB, May & June 2025
 Note added July 2025
 
 I added functions to dump the computed ce and se function
-values into a golden value for use in testing.
+values into a golden value file for use in testing.

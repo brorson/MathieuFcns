@@ -22,16 +22,23 @@ function ce = mathieu_ce(Ne,q,N)
   opts = struct();
   opts.maxit = 2000;
   %opts.disp = 1;
-  opts.p = 50;
+  opts.p = 500;  % Was 75
   %opts.tol = 1e-15;
-  [S,D,flag] = eigs(A,2*Ne,'largestreal',opts);
+  opts.v0 = exp(-(1:N)');
+
+  % Use this when running Matlab
+  %[S,D,flag] = eigs(A,2*Ne,'largestreal',opts);
   
+  % Use this when running Octave
+  [S,D] = eigs(A,2*Ne,'sm', opts);
+ 
   % Since position of eigenvalues & vectors from eigs jumps around,
   % sort them prior to use.  Also extract even fcns.
   [DD, idx] = sort(diag(-D),'ascend');
   S = S(:,idx);
 
-  % Now extract the odd fcns and put them into se
+  % Now extract the odd cols and put them into ce
+  % (the even cols correspond to solns we don't want).
   ce = S(:,1:2:2*Ne);
   
   % Correct sign of fcns.  By definition, all fcns are
