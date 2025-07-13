@@ -3,7 +3,7 @@ function write_mathieu_se_gvs()
   % to test other impls of the Mathieu se fcns.
    
   N = 2500;   % Number of v values
-  q = 1;
+  q = 10;
   % mathieu_ce only operates over the domain [-pi, pi]
   v = linspace(-pi,pi,N);
   Ne = 35;    % Top order of fcn to request.
@@ -28,7 +28,7 @@ function write_mathieu_se_gvs()
   end
   
   % Write GVs to a file along with the v value.
-  fh = fopen('mathieu_se_gvs.csv','w');
+  fh = fopen('mathieu_se_gvs_q10.csv','w');
   fmt = ['%f, ',repmat('%f, ',[1,Ne-1]),'%f \n'];
   for i=1:length(v)
     fprintf(fh, fmt, v(i), Ss(i,:));

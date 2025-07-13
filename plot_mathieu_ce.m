@@ -62,7 +62,7 @@ function plot_mathieu_ce()
   %----------------------------------------------------------
   % Now compute and plot Mathieu functions for fixed q
   Ne = 8;
-  q = 1.0;
+  q = 10;
 
   ce = mathieu_ce(Ne,q,N);
 

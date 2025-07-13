@@ -22,7 +22,8 @@ function ce = mathieu_ce(Ne,q,N)
   opts = struct();
   opts.maxit = 2000;
   %opts.disp = 1;
-  opts.p = 500;  % Was 75
+  %opts.p = 500;  % Was 75
+  opts.p = 75;  % Was 75  
   %opts.tol = 1e-15;
   opts.v0 = exp(-(1:N)');
 
@@ -44,7 +45,7 @@ function ce = mathieu_ce(Ne,q,N)
   % Correct sign of fcns.  By definition, all fcns are
   % positive at v = 0.
   for j=1:Ne
-    if (ce(zidx+1,j) < -1e-3)
+    if (ce(zidx+5,j) < 0)
       % Must flip sign.
       ce(:,j) = -ce(:,j);
     end
