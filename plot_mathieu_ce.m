@@ -22,7 +22,7 @@ function plot_mathieu_ce()
   % on https://dlmf.nist.gov/28.2
 
   % Domain of q values to examine (for plotting)
-  qs = linspace(0,10,N)';
+  qs = linspace(0.001,10,N)';
   
   % Preallocate a vector to store values.
   as = zeros(length(qs), Ne);
@@ -62,7 +62,7 @@ function plot_mathieu_ce()
   %----------------------------------------------------------
   % Now compute and plot Mathieu functions for fixed q
   Ne = 8;
-  q = 10;
+  q = 1;
 
   ce = mathieu_ce(Ne,q,N);
 

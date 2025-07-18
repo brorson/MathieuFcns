@@ -9,6 +9,10 @@ function se = mathieu_se(Ne,q,N)
   v = linspace(-pi, pi, N)';
   h = v(2)-v(1);
 
+  % N must be >= 2*Ne+2. so check that here.
+  if (N < (2*Ne+2))
+    error(' N must be >= 2*Ne+2\n')
+  end
 
   %----------------------------------------------------------
   % Compute se using collocation method.
@@ -22,7 +26,7 @@ function se = mathieu_se(Ne,q,N)
   opts = struct();
   opts.maxit = 2000;
   %opts.disp = 1;
-  opts.p = 200;
+  opts.p = 75;  % 200
   %opts.tol = 1e-15;
   opts.v0 = exp(-(1:(N-2))');  % May not be helpful...
 
@@ -49,6 +53,7 @@ function se = mathieu_se(Ne,q,N)
   for j=1:Ne
     if ( (se(zidx+1,j)-se(zidx,j)) < 0 )
       % Slope was negative.
+      %fprintf('Flipping sign, j = %d\n', j)
       se(:,j) = -se(:,j);
     end
   end

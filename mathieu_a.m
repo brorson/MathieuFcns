@@ -25,9 +25,13 @@ function as = mathieu_a(Ne, q)
   %opts.disp = 1;
   opts.p = 50;
   opts.tol = 1e-10;
-  [S,D,flag] = eigs(Ae,2*Ne,'largestreal',opts);
+  %[S,D,flag] = eigs(Ae,2*Ne,'largestreal',opts);
+  [S,D,flag] = eigs(Ae,2*Ne,'sm',opts);  
   DD = -diag(D);
 
+  % Must sort eigenvalues
+  [DD,idx] = sort(DD);
+  
   % Store away eigenvalues.  Must select only ever other one.
   for j=1:2:length(DD)
     as((j+1)/2) = DD(j);

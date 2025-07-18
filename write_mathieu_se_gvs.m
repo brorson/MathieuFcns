@@ -2,8 +2,13 @@ function write_mathieu_se_gvs()
   % This creates a file with golden values in columns used
   % to test other impls of the Mathieu se fcns.
    
+  fid = stdin();
+  q = fscanf(fid,'%f');
+  
+  fprintf('q = %f\n', q)
+    
+    
   N = 2500;   % Number of v values
-  q = 1;
   % mathieu_ce only operates over the domain [-pi, pi]
   v = linspace(-pi,pi,N);
   Ne = 35;    % Top order of fcn to request.
@@ -28,7 +33,8 @@ function write_mathieu_se_gvs()
   end
   
   % Write GVs to a file along with the v value.
-  fh = fopen('mathieu_se_gvs_q1.csv','w');
+  filename = ['mathieu_se_gvs_q',num2str(q),'.csv'];
+  fh = fopen(filename,'w');
   % First write q value to file.
   fprintf(fh,'%f\n',q)
   % Then write fcn values.

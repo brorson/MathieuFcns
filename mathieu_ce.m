@@ -45,8 +45,9 @@ function ce = mathieu_ce(Ne,q,N)
   % Correct sign of fcns.  By definition, all fcns are
   % positive at v = 0.
   for j=1:Ne
-    if (ce(zidx+5,j) < 0)
+    if (ce(zidx,j) < 0)
       % Must flip sign.
+      %fprintf('Flipping sign for j=%d\n', j)
       ce(:,j) = -ce(:,j);
     end
   end

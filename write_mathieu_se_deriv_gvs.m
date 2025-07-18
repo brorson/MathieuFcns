@@ -1,9 +1,14 @@
 function write_mathieu_se_deriv_gvs()
   % This creates a file with golden values in columns used
   % to test other impls of the Mathieu se derivs.
+
+  fid = stdin();
+  q = fscanf(fid,'%f');
+  
+  fprintf('q = %f\n', q)
    
   N = 2500;   % Number of v values
-  q = 1;
+
   % mathieu_se only operates over the domain [-pi, pi]
   v = linspace(-pi,pi,N);
   dv = v(2) - v(1);
@@ -20,7 +25,7 @@ function write_mathieu_se_deriv_gvs()
   v = v(1:end-1);
 			    
   % Make plots to check the fcns.
-  if 1
+  if 0
     leg = {};
     for i=1:Ne
       se = Ss(:,i);   % Extract one order.
@@ -40,7 +45,7 @@ function write_mathieu_se_deriv_gvs()
   Ssd(end,:) = (Ss(1,:)-Ss(end-1,:))/(2*dv);
 
   % Make plots to check the fcns.
-  if 1
+  if 0
     for i=1:Ne
       sed = Ssd(:,i);   % Extract one order.
       plot(v,sed)
@@ -55,7 +60,8 @@ function write_mathieu_se_deriv_gvs()
 
 			    
   % Write GVs to a file along with the v value.
-  fh = fopen('mathieu_se_deriv_gvs_q1.csv','w');
+  filename = ['mathieu_se_deriv_gvs_q',num2str(q),'.csv'];
+  fh = fopen(filename,'w');
   % First write q value to file.
   fprintf(fh,'%f\n',q)
   % Then write fcn values.

@@ -2,8 +2,12 @@ function write_mathieu_ce_deriv_gvs()
   % This creates a file with golden values in columns used
   % to test other impls of the Mathieu ce derivs.
    
+  fid = stdin();
+  q = fscanf(fid,'%f');
+  
+  fprintf('q = %f\n', q)
+ 
   N = 2500;   % Number of v values
-  q = 1;
   % mathieu_ce only operates over the domain [-pi, pi]
   v = linspace(-pi,pi,N);
   dv = v(2) - v(1);
@@ -48,7 +52,8 @@ function write_mathieu_ce_deriv_gvs()
 
   
   % Write GVs to a file along with the v value.
-  fh = fopen('mathieu_ce_deriv_gvs_q1.csv','w');
+  filename = ['mathieu_ce_deriv_gvs_q',num2str(q),'.csv'];
+  fh = fopen(filename,'w');
   % First write q value to file.
   fprintf(fh,'%f\n',q)
   % Then write fcn values.
