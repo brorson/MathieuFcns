@@ -3,7 +3,9 @@
 rm mathieu*.csv
 rm ../MathieuStudies/mathieu*.csv
 
-fns=(-1000 -100 -10 -1 -0.1 -0.001 0.001 0.01 0.1 1 10 100 1000)
+#fns=(-1000 -100 -10 -1 -0.1 -0.001 0.001 0.01 0.1 1 10 100 1000)
+# This computational method works for small q.
+fns=(-10 -1 -0.1 -0.001 0.001 0.01 0.1 1 10)
 
 for i in ${fns[@]};
 do

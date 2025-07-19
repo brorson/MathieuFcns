@@ -35,10 +35,23 @@ function se = mathieu_se(Ne,q,N)
   
   % Use this when running Octave
   [S,D] = eigs(A,2*Ne,'sm', opts);
+
+  % I need to check for convergence since I get bad
+  % results for some values of q,
+  if (flag ~= 0)
+    error('eigs did not converge!')
+  end
   
   % Since position of eigenvalues & vectors from eigs jumps around,
   % sort them prior to use.  Also extract odd fcns.
   [DD, idx] = sort(diag(-D),'ascend');
+  %fprintf('DD(1) = %18.15e, DD(2) = %18.15e \n', DD(1), DD(2))
+  diff = DD(2)-DD(1);
+  fprintf('diff = %e\n', diff)
+  if (abs(diff)<1e-8)
+    error('Eigenvalues too close to resolve!')
+  end
+  
   S = S(:,idx);
 
   % Tack zeros to top and bottom of the eigenvector matrix.

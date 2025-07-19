@@ -16,26 +16,44 @@ function ce = mathieu_ce(Ne,q,N)
   %----------------------------------------------------------
 
   A = make_matrix_e(N,q,v);
-  % fprintf('cond(A) = %e\n', cond(full(A)))
+  %fprintf('cond(A) = %e\n', cond(full(A)))
   
   % Compute eigenvalues & vectors
   opts = struct();
   opts.maxit = 2000;
   %opts.disp = 1;
   %opts.p = 500;  % Was 75
-  opts.p = 75;  % Was 75  
-  %opts.tol = 1e-15;
-  opts.v0 = exp(-(1:N)');
+  opts.p = 75;
+  %opts.tol = 1e-8*eps();
+  opts.v0 = sin(v).^2;
 
   % Use this when running Matlab
   %[S,D,flag] = eigs(A,2*Ne,'largestreal',opts);
   
   % Use this when running Octave
-  [S,D] = eigs(A,2*Ne,'sm', opts);
+  %[S,D,flag] = eigs(A+abs(q)*eye(size(A)),3*Ne,'sm', opts);
+  [S,D,flag] = eigs(A,2*Ne,'sm', opts);  
+
+  % I need to check for convergence since I get bad
+  % results for some values of q,
+  if (flag ~= 0)
+    error('eigs did not converge!')
+  end
+  
+  % Try Lapack -- it takes forever to create all GVs
+  %[S,D] = eig(A+abs(q)*eye(size(A)),'nobalance');  
+  %[S,D] = eig(A,'nobalance');    
  
   % Since position of eigenvalues & vectors from eigs jumps around,
   % sort them prior to use.  Also extract even fcns.
   [DD, idx] = sort(diag(-D),'ascend');
+  %fprintf('DD(1) = %18.15e, DD(2) = %18.15e \n', DD(1), DD(2))
+  diff = DD(2)-DD(1);
+  fprintf('diff = %e\n', diff)
+  if (abs(diff)<1e-8)
+    error('Eigenvalues too close to resolve!')
+  end
+  
   S = S(:,idx);
 
   % Now extract the odd cols and put them into ce

@@ -12,7 +12,7 @@ function write_mathieu_se_deriv_gvs()
   % mathieu_se only operates over the domain [-pi, pi]
   v = linspace(-pi,pi,N);
   dv = v(2) - v(1);
-  Ne = 35;    % Top order of fcn to request.
+  Ne = 5;    % Top order of fcn to request.
 
   % Compute fcn values
   Ss = mathieu_se(Ne,q,N);  % GVs for different orders are

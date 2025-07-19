@@ -1,9 +1,14 @@
-function write_mathieu_ce_gvs()
+function write_mathieu_ce_gvs(varargin)
   % This creates a file with golden values in columns used
   % to test other impls of the Mathieu ce fcns.
 
-  fid = stdin();
-  q = fscanf(fid,'%f');
+  % Read q from the command line if it isn't in the calling args.
+  if (length(varargin) == 0)
+    fid = stdin();
+    q = fscanf(fid,'%f');
+  else
+    q = varargin{1};
+  end
   
   fprintf('q = %f\n', q)
   
@@ -14,8 +19,14 @@ function write_mathieu_ce_gvs()
   Ne = 35;    % Top order of fcn to request.
 
   % Compute fcn values
-  Ss = mathieu_ce(Ne,q,N);  % GVs for different orders are
-                            % arranged in columns.
+  try
+    Ss = mathieu_ce(Ne,q,N);  % GVs for different orders are
+			      % arranged in columns.
+  catch e
+    fprintf('mathieu_ce threw exception: %s\n', e.message)
+    return
+  end
+  
   
   % Make plots to check the fcns.
   if 0

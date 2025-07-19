@@ -11,11 +11,18 @@ function write_mathieu_se_gvs()
   N = 2500;   % Number of v values
   % mathieu_ce only operates over the domain [-pi, pi]
   v = linspace(-pi,pi,N);
-  Ne = 35;    % Top order of fcn to request.
+  Ne = 5;    % Top order of fcn to request.
 
   % Compute fcn values
-  Ss = mathieu_se(Ne,q,N);  % GVs for different orders are
-                            % arranged in columns.
+  try
+    Ss = mathieu_se(Ne,q,N);  % GVs for different orders are
+			      % arranged in columns.
+  catch e
+    fprintf('mathieu_se threw exception: %s\n', e.message)
+    return
+  end
+  
+
   
   % Make plots to check the fcns.
   if 0
